@@ -2,11 +2,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'heroi_network_entity.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class HttpPagedResult {
   int first;
   dynamic prev;
-  int next;
+  int? next;
   int last;
   int pages;
   int items;
@@ -22,10 +22,11 @@ class HttpPagedResult {
     required this.data,
   });
 
-  factory HttpPagedResult.fromJson(Map<String, dynamic> json) => _$HttpPagedResultFromJson(json);
+  factory HttpPagedResult.fromJson(Map<String, dynamic> json) =>
+      _$HttpPagedResultFromJson(json);
 }
 
-@JsonSerializable()
+@JsonSerializable(createFactory: false, createToJson: false)
 class HeroiNetworkEntity {
   String id;
   String nome;
@@ -39,5 +40,18 @@ class HeroiNetworkEntity {
     this.imageUrl,
   });
 
-  factory HeroiNetworkEntity.fromJson(Map<String, dynamic> json) => _$HeroiNetworkEntityFromJson(json);
+  factory HeroiNetworkEntity.fromJson(Map<String, dynamic> json) {
+    final powerstats =
+        json['powerstats'] as Map<String, dynamic>? ?? {};
+
+    final images =
+        json['images'] as Map<String, dynamic>? ?? {};
+
+    return HeroiNetworkEntity(
+      id: json['id'].toString(),
+      nome: json['name']?.toString() ?? 'Sem nome',
+      poder: powerstats['power']?.toString() ?? '0',
+      imageUrl: images['sm']?.toString(),
+    );
+  }
 }
