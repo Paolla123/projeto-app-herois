@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/di/configure_providers.dart';
-import 'ui/page/herois_list_page.dart';
+import 'ui/page/tela_inicial_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class AppRoot extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const HeroisListPage(),
+        home: const TelaInicial(),
       ),
     );
   }

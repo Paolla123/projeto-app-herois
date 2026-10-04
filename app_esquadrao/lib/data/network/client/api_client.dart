@@ -11,7 +11,10 @@ class ApiClient {
       ..interceptors.add(
         LogInterceptor(
           requestBody: true,
-          responseBody: true,
+          // colocando em false, para não travar o emulador 
+          responseBody: false, 
+          requestHeader: false,
+          responseHeader: false,
         ),
       );
   }
@@ -31,6 +34,7 @@ class ApiClient {
         message: response.statusMessage,
       );
     } else if (response.statusCode != null) {
+      // Como o json-server agora usa paginação, o seu HttpPagedResult já extrai a chave "data" perfeitamente
       final HttpPagedResult receivedData = HttpPagedResult.fromJson(response.data as Map<String, dynamic>);
       return receivedData.data;
     } else {

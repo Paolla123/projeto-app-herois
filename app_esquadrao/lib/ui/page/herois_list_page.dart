@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../domain/heroi.dart';
 import '../../data/repository/heroi_repository_impl.dart';
-import '../widgets/heroi_card.dart';
+//import '../widgets/heroi_card.dart';
 
 class HeroisListPage extends StatefulWidget {
   const HeroisListPage({super.key});
@@ -16,6 +16,7 @@ class HeroisListPage extends StatefulWidget {
 class _HeroisListPageState extends State<HeroisListPage> {
   late final HeroiRepositoryImpl heroisRepo;
   
+
   late final PagingController<int, Heroi> _pagingController = PagingController<int, Heroi>(
     getNextPageKey: (state) => state.lastPageIsEmpty ? null : state.nextIntPageKey,
     fetchPage: (pageKey) => heroisRepo.getHerois(page: pageKey, limit: 20)
@@ -50,7 +51,7 @@ class _HeroisListPageState extends State<HeroisListPage> {
             state: state,
             fetchNextPage: fetchNextPage,
             builderDelegate: PagedChildBuilderDelegate(
-              itemBuilder: (context, heroi, index) => HeroiCard(heroi: heroi),
+              itemBuilder: (context, heroi, index) => ListTile(title: Text(heroi.nome)),
             ),
           ),
         )
