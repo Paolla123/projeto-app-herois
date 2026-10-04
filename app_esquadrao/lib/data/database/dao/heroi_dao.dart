@@ -16,6 +16,13 @@ class HeroiDao extends BaseDao {
     });
   }
 
+  // NOVA FUNÇÃO: Conta quantos heróis existem salvos no banco local
+  Future<int> count() async {
+    final Database db = await getDb();
+    final result = await db.rawQuery('SELECT COUNT(*) FROM ${HeroiDatabaseContract.heroiTable}');
+    return Sqflite.firstIntValue(result) ?? 0;
+  }
+
   Future<void> insert(HeroiDatabaseEntity entity) async {
     final Database db = await getDb();
     await db.insert(HeroiDatabaseContract.heroiTable, entity.toJson());
