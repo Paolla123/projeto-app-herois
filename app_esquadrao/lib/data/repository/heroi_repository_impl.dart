@@ -33,7 +33,7 @@ class HeroiRepositoryImpl implements HeroiRepository {
     final herois = networkMapper.toHerois(networkEntity);
     
     // alva os dados baixados no banco local (AGORA COM O AWAIT!)
-    await heroiDao.insertAll(databaseMapper.toHeroiDatabaseEntities(herois));
+    //await heroiDao.insertAll(databaseMapper.toHeroiDatabaseEntities(herois));
 
     // Retorna os heróis com segurança
     return herois;
