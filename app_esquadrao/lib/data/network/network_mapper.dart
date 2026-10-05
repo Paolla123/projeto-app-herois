@@ -8,19 +8,33 @@ class NetworkMapper {
       return Heroi(
         id: entity.id,
         nome: entity.nome,
-        poder: entity.poder,
+
+        intelligence: entity.intelligence,
+        strength: entity.strength,
+        speed: entity.speed,
+        durability: entity.durability,
+        power: entity.power,
+        combat: entity.combat,
+
+        altura: entity.altura,
+        peso: entity.peso,
+
         imageUrl: entity.imageUrl,
       );
     } catch (e) {
-      throw MapperException<HeroiNetworkEntity, Heroi>(e.toString());
+      throw MapperException<HeroiNetworkEntity, Heroi>(
+        e.toString(),
+      );
     }
   }
 
   List<Heroi> toHerois(List<HeroiNetworkEntity> entities) {
     final List<Heroi> herois = [];
-    for (var entity in entities) {
+
+    for (final entity in entities) {
       herois.add(toHeroi(entity));
     }
+
     return herois;
   }
 }

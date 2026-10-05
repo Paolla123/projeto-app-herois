@@ -28,15 +28,32 @@ class HttpPagedResult {
 
 @JsonSerializable(createFactory: false, createToJson: false)
 class HeroiNetworkEntity {
-  String id;
-  String nome;
-  String poder;
-  String? imageUrl;
+  final String id;
+  final String nome;
+
+  final int intelligence;
+  final int strength;
+  final int speed;
+  final int durability;
+  final int power;
+  final int combat;
+
+  final String altura;
+  final String peso;
+
+  final String? imageUrl;
 
   HeroiNetworkEntity({
     required this.id,
     required this.nome,
-    required this.poder,
+    required this.intelligence,
+    required this.strength,
+    required this.speed,
+    required this.durability,
+    required this.power,
+    required this.combat,
+    required this.altura,
+    required this.peso,
     this.imageUrl,
   });
 
@@ -44,14 +61,46 @@ class HeroiNetworkEntity {
     final powerstats =
         json['powerstats'] as Map<String, dynamic>? ?? {};
 
+    final appearance =
+        json['appearance'] as Map<String, dynamic>? ?? {};
+
     final images =
         json['images'] as Map<String, dynamic>? ?? {};
+
+    final height = appearance['height'];
+    final weight = appearance['weight'];
 
     return HeroiNetworkEntity(
       id: json['id'].toString(),
       nome: json['name']?.toString() ?? 'Sem nome',
-      poder: powerstats['power']?.toString() ?? '0',
+
+      intelligence: _toInt(powerstats['intelligence']),
+      strength: _toInt(powerstats['strength']),
+      speed: _toInt(powerstats['speed']),
+      durability: _toInt(powerstats['durability']),
+      power: _toInt(powerstats['power']),
+      combat: _toInt(powerstats['combat']),
+
+      altura: _formatAppearanceValue(height),
+      peso: _formatAppearanceValue(weight),
+
       imageUrl: images['sm']?.toString(),
     );
+  }
+
+  static int _toInt(dynamic value) {
+    if (value is int) {
+      return value;
+    }
+
+    return int.tryParse(value?.toString() ?? '') ?? 0;
+  }
+
+  static String _formatAppearanceValue(dynamic value) {
+    if (value is List) {
+      return value.map((item) => item.toString()).join(' / ');
+    }
+
+    return value?.toString() ?? 'Não informado';
   }
 }

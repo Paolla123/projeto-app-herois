@@ -8,41 +8,76 @@ class DatabaseMapper {
       return Heroi(
         id: entity.id,
         nome: entity.nome,
-        poder: entity.poder,
+
+        intelligence: entity.intelligence,
+        strength: entity.strength,
+        speed: entity.speed,
+        durability: entity.durability,
+        power: entity.power,
+        combat: entity.combat,
+
+        altura: entity.altura,
+        peso: entity.peso,
+
         imageUrl: entity.imageUrl,
       );
     } catch (e) {
-      throw MapperException<HeroiDatabaseEntity, Heroi>(e.toString());
+      throw MapperException<HeroiDatabaseEntity, Heroi>(
+        e.toString(),
+      );
     }
   }
 
-  List<Heroi> toHerois(List<HeroiDatabaseEntity> entities) {
+  List<Heroi> toHerois(
+    List<HeroiDatabaseEntity> entities,
+  ) {
     final List<Heroi> herois = [];
-    for (var entity in entities) {
+
+    for (final entity in entities) {
       herois.add(toHeroi(entity));
     }
+
     return herois;
   }
 
   HeroiDatabaseEntity toHeroiDatabaseEntity(Heroi heroi) {
     try {
       return HeroiDatabaseEntity(
-        localId: null, // Deixamos nulo para o banco de dados gerar o número sozinho
+        localId: null,
+
         id: heroi.id,
         nome: heroi.nome,
-        poder: heroi.poder,
+
+        intelligence: heroi.intelligence,
+        strength: heroi.strength,
+        speed: heroi.speed,
+        durability: heroi.durability,
+        power: heroi.power,
+        combat: heroi.combat,
+
+        altura: heroi.altura,
+        peso: heroi.peso,
+
         imageUrl: heroi.imageUrl,
       );
     } catch (e) {
-      throw MapperException<HeroiDatabaseEntity, Heroi>(e.toString());
+      throw MapperException<HeroiDatabaseEntity, Heroi>(
+        e.toString(),
+      );
     }
   }
 
-  List<HeroiDatabaseEntity> toHeroiDatabaseEntities(List<Heroi> herois) {
+  List<HeroiDatabaseEntity> toHeroiDatabaseEntities(
+    List<Heroi> herois,
+  ) {
     final List<HeroiDatabaseEntity> entities = [];
-    for (var h in herois) {
-      entities.add(toHeroiDatabaseEntity(h));
+
+    for (final heroi in herois) {
+      entities.add(
+        toHeroiDatabaseEntity(heroi),
+      );
     }
+
     return entities;
   }
 }

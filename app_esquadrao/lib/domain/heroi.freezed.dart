@@ -13,9 +13,9 @@ part of 'heroi.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Heroi implements DiagnosticableTreeMixin {
+mixin _$Heroi {
 
- String get id; String get nome; String get poder; String? get imageUrl;
+ String get id; String get nome; int get intelligence; int get strength; int get speed; int get durability; int get power; int get combat; String get altura; String get peso; String? get imageUrl;
 /// Create a copy of Heroi
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -23,31 +23,24 @@ mixin _$Heroi implements DiagnosticableTreeMixin {
 $HeroiCopyWith<Heroi> get copyWith => _$HeroiCopyWithImpl<Heroi>(this as Heroi, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  final _this = this as Heroi;
-  properties
-    ..add(DiagnosticsProperty('type', 'Heroi'))
-    ..add(DiagnosticsProperty('id', _this.id))..add(DiagnosticsProperty('nome', _this.nome))..add(DiagnosticsProperty('poder', _this.poder))..add(DiagnosticsProperty('imageUrl', _this.imageUrl));
-}
 
 @override
 bool operator ==(Object other) {
   final _this = this as Heroi;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Heroi&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.nome, _this.nome) || other.nome == _this.nome)&&(identical(other.poder, _this.poder) || other.poder == _this.poder)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Heroi&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.nome, _this.nome) || other.nome == _this.nome)&&(identical(other.intelligence, _this.intelligence) || other.intelligence == _this.intelligence)&&(identical(other.strength, _this.strength) || other.strength == _this.strength)&&(identical(other.speed, _this.speed) || other.speed == _this.speed)&&(identical(other.durability, _this.durability) || other.durability == _this.durability)&&(identical(other.power, _this.power) || other.power == _this.power)&&(identical(other.combat, _this.combat) || other.combat == _this.combat)&&(identical(other.altura, _this.altura) || other.altura == _this.altura)&&(identical(other.peso, _this.peso) || other.peso == _this.peso)&&(identical(other.imageUrl, _this.imageUrl) || other.imageUrl == _this.imageUrl));
 }
 
 
 @override
 int get hashCode {
   final _this = this as Heroi;
-  return Object.hash(runtimeType,_this.id,_this.nome,_this.poder,_this.imageUrl);
+  return Object.hash(runtimeType,_this.id,_this.nome,_this.intelligence,_this.strength,_this.speed,_this.durability,_this.power,_this.combat,_this.altura,_this.peso,_this.imageUrl);
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+String toString() {
   final _this = this as Heroi;
-  return 'Heroi(id: ${_this.id}, nome: ${_this.nome}, poder: ${_this.poder}, imageUrl: ${_this.imageUrl})';
+  return 'Heroi(id: ${_this.id}, nome: ${_this.nome}, intelligence: ${_this.intelligence}, strength: ${_this.strength}, speed: ${_this.speed}, durability: ${_this.durability}, power: ${_this.power}, combat: ${_this.combat}, altura: ${_this.altura}, peso: ${_this.peso}, imageUrl: ${_this.imageUrl})';
 }
 
 
@@ -58,7 +51,7 @@ abstract mixin class $HeroiCopyWith<$Res>  {
   factory $HeroiCopyWith(Heroi value, $Res Function(Heroi) _then) = _$HeroiCopyWithImpl;
 @useResult
 $Res call({
- String id, String nome, String poder, String? imageUrl
+ String id, String nome, int intelligence, int strength, int speed, int durability, int power, int combat, String altura, String peso, String? imageUrl
 });
 
 
@@ -75,11 +68,18 @@ class _$HeroiCopyWithImpl<$Res>
 
 /// Create a copy of Heroi
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nome = null,Object? poder = null,Object? imageUrl = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? nome = null,Object? intelligence = null,Object? strength = null,Object? speed = null,Object? durability = null,Object? power = null,Object? combat = null,Object? altura = null,Object? peso = null,Object? imageUrl = freezed,}) {
   return _then(Heroi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,nome: null == nome ? _self.nome : nome // ignore: cast_nullable_to_non_nullable
-as String,poder: null == poder ? _self.poder : poder // ignore: cast_nullable_to_non_nullable
+as String,intelligence: null == intelligence ? _self.intelligence : intelligence // ignore: cast_nullable_to_non_nullable
+as int,strength: null == strength ? _self.strength : strength // ignore: cast_nullable_to_non_nullable
+as int,speed: null == speed ? _self.speed : speed // ignore: cast_nullable_to_non_nullable
+as int,durability: null == durability ? _self.durability : durability // ignore: cast_nullable_to_non_nullable
+as int,power: null == power ? _self.power : power // ignore: cast_nullable_to_non_nullable
+as int,combat: null == combat ? _self.combat : combat // ignore: cast_nullable_to_non_nullable
+as int,altura: null == altura ? _self.altura : altura // ignore: cast_nullable_to_non_nullable
+as String,peso: null == peso ? _self.peso : peso // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -166,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String nome,  String poder,  String? imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String nome,  int intelligence,  int strength,  int speed,  int durability,  int power,  int combat,  String altura,  String peso,  String? imageUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Heroi() when $default != null:
-return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
+return $default(_that.id,_that.nome,_that.intelligence,_that.strength,_that.speed,_that.durability,_that.power,_that.combat,_that.altura,_that.peso,_that.imageUrl);case _:
   return orElse();
 
 }
@@ -187,10 +187,10 @@ return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String nome,  String poder,  String? imageUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String nome,  int intelligence,  int strength,  int speed,  int durability,  int power,  int combat,  String altura,  String peso,  String? imageUrl)  $default,) {final _that = this;
 switch (_that) {
 case _Heroi():
-return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
+return $default(_that.id,_that.nome,_that.intelligence,_that.strength,_that.speed,_that.durability,_that.power,_that.combat,_that.altura,_that.peso,_that.imageUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +207,10 @@ return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String nome,  String poder,  String? imageUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String nome,  int intelligence,  int strength,  int speed,  int durability,  int power,  int combat,  String altura,  String peso,  String? imageUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _Heroi() when $default != null:
-return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
+return $default(_that.id,_that.nome,_that.intelligence,_that.strength,_that.speed,_that.durability,_that.power,_that.combat,_that.altura,_that.peso,_that.imageUrl);case _:
   return null;
 
 }
@@ -221,13 +221,20 @@ return $default(_that.id,_that.nome,_that.poder,_that.imageUrl);case _:
 /// @nodoc
 
 
-class _Heroi with DiagnosticableTreeMixin implements Heroi {
-  const _Heroi({required this.id, required this.nome, required this.poder, this.imageUrl});
+class _Heroi implements Heroi {
+  const _Heroi({required this.id, required this.nome, required this.intelligence, required this.strength, required this.speed, required this.durability, required this.power, required this.combat, required this.altura, required this.peso, this.imageUrl});
   
 
 @override final  String id;
 @override final  String nome;
-@override final  String poder;
+@override final  int intelligence;
+@override final  int strength;
+@override final  int speed;
+@override final  int durability;
+@override final  int power;
+@override final  int combat;
+@override final  String altura;
+@override final  String peso;
 @override final  String? imageUrl;
 
 /// Create a copy of Heroi
@@ -237,27 +244,21 @@ class _Heroi with DiagnosticableTreeMixin implements Heroi {
 _$HeroiCopyWith<_Heroi> get copyWith => __$HeroiCopyWithImpl<_Heroi>(this, _$identity);
 
 
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    properties
-    ..add(DiagnosticsProperty('type', 'Heroi'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('nome', nome))..add(DiagnosticsProperty('poder', poder))..add(DiagnosticsProperty('imageUrl', imageUrl));
-}
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Heroi&&(identical(other.id, id) || other.id == id)&&(identical(other.nome, nome) || other.nome == nome)&&(identical(other.poder, poder) || other.poder == poder)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Heroi&&(identical(other.id, id) || other.id == id)&&(identical(other.nome, nome) || other.nome == nome)&&(identical(other.intelligence, intelligence) || other.intelligence == intelligence)&&(identical(other.strength, strength) || other.strength == strength)&&(identical(other.speed, speed) || other.speed == speed)&&(identical(other.durability, durability) || other.durability == durability)&&(identical(other.power, power) || other.power == power)&&(identical(other.combat, combat) || other.combat == combat)&&(identical(other.altura, altura) || other.altura == altura)&&(identical(other.peso, peso) || other.peso == peso)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,nome,poder,imageUrl);
+    return Object.hash(runtimeType,id,nome,intelligence,strength,speed,durability,power,combat,altura,peso,imageUrl);
 }
 
 @override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-    return 'Heroi(id: $id, nome: $nome, poder: $poder, imageUrl: $imageUrl)';
+String toString() {
+    return 'Heroi(id: $id, nome: $nome, intelligence: $intelligence, strength: $strength, speed: $speed, durability: $durability, power: $power, combat: $combat, altura: $altura, peso: $peso, imageUrl: $imageUrl)';
 }
 
 
@@ -268,7 +269,7 @@ abstract mixin class _$HeroiCopyWith<$Res> implements $HeroiCopyWith<$Res> {
   factory _$HeroiCopyWith(_Heroi value, $Res Function(_Heroi) _then) = __$HeroiCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String nome, String poder, String? imageUrl
+ String id, String nome, int intelligence, int strength, int speed, int durability, int power, int combat, String altura, String peso, String? imageUrl
 });
 
 
@@ -285,11 +286,18 @@ class __$HeroiCopyWithImpl<$Res>
 
 /// Create a copy of Heroi
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nome = null,Object? poder = null,Object? imageUrl = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? nome = null,Object? intelligence = null,Object? strength = null,Object? speed = null,Object? durability = null,Object? power = null,Object? combat = null,Object? altura = null,Object? peso = null,Object? imageUrl = freezed,}) {
   return _then(_Heroi(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,nome: null == nome ? _self.nome : nome // ignore: cast_nullable_to_non_nullable
-as String,poder: null == poder ? _self.poder : poder // ignore: cast_nullable_to_non_nullable
+as String,intelligence: null == intelligence ? _self.intelligence : intelligence // ignore: cast_nullable_to_non_nullable
+as int,strength: null == strength ? _self.strength : strength // ignore: cast_nullable_to_non_nullable
+as int,speed: null == speed ? _self.speed : speed // ignore: cast_nullable_to_non_nullable
+as int,durability: null == durability ? _self.durability : durability // ignore: cast_nullable_to_non_nullable
+as int,power: null == power ? _self.power : power // ignore: cast_nullable_to_non_nullable
+as int,combat: null == combat ? _self.combat : combat // ignore: cast_nullable_to_non_nullable
+as int,altura: null == altura ? _self.altura : altura // ignore: cast_nullable_to_non_nullable
+as String,peso: null == peso ? _self.peso : peso // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
