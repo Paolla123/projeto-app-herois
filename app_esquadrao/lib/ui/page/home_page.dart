@@ -1,25 +1,38 @@
 import 'package:flutter/material.dart';
 
+import 'contrato_diario_page.dart';
 import 'herois_list_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agência de Heróis'),
+        title: const Text(
+          'Agência de Heróis',
+        ),
         centerTitle: true,
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding:
+              const EdgeInsets.all(
+            24.0,
+          ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment:
+                MainAxisAlignment
+                    .center,
+            crossAxisAlignment:
+                CrossAxisAlignment
+                    .stretch,
             children: [
-              // Navegação para a tela de Agentes
               _buildMenuButton(
                 context,
                 'Agentes',
@@ -27,22 +40,36 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const HeroisListPage(),
+                      builder:
+                          (context) =>
+                              const HeroisListPage(),
                     ),
                   );
                 },
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(
+                height: 20,
+              ),
 
               _buildMenuButton(
                 context,
                 'Contrato Diário',
-                () {},
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              const ContratoDiarioPage(),
+                    ),
+                  );
+                },
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(
+                height: 20,
+              ),
 
               _buildMenuButton(
                 context,
@@ -50,7 +77,9 @@ class HomePage extends StatelessWidget {
                 () {},
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(
+                height: 20,
+              ),
 
               _buildMenuButton(
                 context,
@@ -70,18 +99,29 @@ class HomePage extends StatelessWidget {
     VoidCallback onPressed,
   ) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue[700],
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(
+      style:
+          ElevatedButton.styleFrom(
+        backgroundColor:
+            Colors.blue[700],
+        foregroundColor:
+            Colors.white,
+        padding:
+            const EdgeInsets
+                .symmetric(
           vertical: 20,
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+        shape:
+            RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(
+            12,
+          ),
         ),
-        textStyle: const TextStyle(
+        textStyle:
+            const TextStyle(
           fontSize: 20,
-          fontWeight: FontWeight.bold,
+          fontWeight:
+              FontWeight.bold,
         ),
       ),
       onPressed: onPressed,
