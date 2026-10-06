@@ -19,8 +19,6 @@ class ContratoDiarioRepositoryImpl
 
   static const int _pageSize = 20;
 
-  // A API possui 563 heróis.
-  // Com 20 por página, temos 29 páginas.
   static const int _totalPaginas = 29;
 
   ContratoDiarioRepositoryImpl({
