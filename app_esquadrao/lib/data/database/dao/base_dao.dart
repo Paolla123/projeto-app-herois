@@ -3,16 +3,20 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../entity/heroi_database_entity.dart';
+import '../entity/squad_database_entity.dart';
 
 abstract class BaseDao {
-  static const databaseVersion = 2;
-  static const _databaseName = 'heroi_database.db';
+  static const databaseVersion = 3;
+  static const _databaseName =
+      'heroi_database.db';
 
   Database? _database;
 
   @protected
   Future<Database> getDb() async {
-    _database ??= await _getDatabase();
+    _database ??=
+        await _getDatabase();
+
     return _database!;
   }
 
@@ -26,27 +30,36 @@ abstract class BaseDao {
         final batch = db.batch();
 
         _createHeroisTable(batch);
+        _createSquadTable(batch);
 
         await batch.commit();
       },
-      onUpgrade: (db, oldVersion, newVersion) async {
-        if (oldVersion < 2) {
-          final batch = db.batch();
+      onUpgrade:
+          (db, oldVersion, newVersion) async {
+        final batch = db.batch();
 
+        if (oldVersion < 2) {
           batch.execute(
-            'DROP TABLE IF EXISTS ${HeroiDatabaseContract.heroiTable}',
+            'DROP TABLE IF EXISTS '
+            '${HeroiDatabaseContract.heroiTable}',
           );
 
           _createHeroisTable(batch);
-
-          await batch.commit();
         }
+
+        if (oldVersion < 3) {
+          _createSquadTable(batch);
+        }
+
+        await batch.commit();
       },
       version: databaseVersion,
     );
   }
 
-  void _createHeroisTable(Batch batch) {
+  void _createHeroisTable(
+    Batch batch,
+  ) {
     batch.execute(
       '''
       CREATE TABLE ${HeroiDatabaseContract.heroiTable}(
@@ -85,6 +98,23 @@ abstract class BaseDao {
 
         ${HeroiDatabaseContract.imgUrlColumn}
           TEXT NULL
+      );
+      ''',
+    );
+  }
+
+  void _createSquadTable(
+    Batch batch,
+  ) {
+    batch.execute(
+      '''
+      CREATE TABLE IF NOT EXISTS
+      ${SquadDatabaseContract.squadTable}(
+        ${SquadDatabaseContract.localIdColumn}
+          INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        ${SquadDatabaseContract.heroiIdColumn}
+          TEXT NOT NULL UNIQUE
       );
       ''',
     );

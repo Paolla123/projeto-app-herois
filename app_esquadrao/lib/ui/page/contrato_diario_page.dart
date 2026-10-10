@@ -3,38 +3,110 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/repository/contrato_diario_repository.dart';
+import '../../data/repository/squad_repository.dart';
 import '../../domain/heroi.dart';
 
-class ContratoDiarioPage
-    extends StatefulWidget {
+class ContratoDiarioPage extends StatefulWidget {
   const ContratoDiarioPage({
     super.key,
   });
 
   @override
-  State<ContratoDiarioPage>
-      createState() =>
-          _ContratoDiarioPageState();
+  State<ContratoDiarioPage> createState() =>
+      _ContratoDiarioPageState();
 }
 
 class _ContratoDiarioPageState
     extends State<ContratoDiarioPage> {
   late Future<Heroi> _heroiFuture;
 
+  bool _recrutando = false;
+
   @override
   void initState() {
     super.initState();
 
     final repository =
-        Provider.of<
-          ContratoDiarioRepository
-        >(
+        Provider.of<ContratoDiarioRepository>(
       context,
       listen: false,
     );
 
     _heroiFuture =
         repository.getHeroiDoDia();
+  }
+
+  Future<void> _recrutar(
+    Heroi heroi,
+  ) async {
+    if (_recrutando) {
+      return;
+    }
+
+    setState(() {
+      _recrutando = true;
+    });
+
+    final repository =
+        Provider.of<SquadRepository>(
+      context,
+      listen: false,
+    );
+
+    final result =
+        await repository.recruit(
+      heroi,
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      _recrutando = false;
+    });
+
+    switch (result) {
+      case RecruitResult.success:
+        _mostrarMensagem(
+          '${heroi.nome} foi recrutado!',
+          Colors.green,
+        );
+        break;
+
+      case RecruitResult.alreadyRecruited:
+        _mostrarMensagem(
+          '${heroi.nome} já está no esquadrão.',
+          Colors.orange,
+        );
+        break;
+
+      case RecruitResult.squadFull:
+        _mostrarMensagem(
+          'O esquadrão já possui 15 agentes.',
+          Colors.red,
+        );
+        break;
+    }
+  }
+
+  void _mostrarMensagem(
+    String mensagem,
+    Color cor,
+  ) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(
+      SnackBar(
+        content: Text(
+          mensagem,
+        ),
+        backgroundColor: cor,
+        duration:
+            const Duration(
+          seconds: 2,
+        ),
+      ),
+    );
   }
 
   @override
@@ -90,17 +162,21 @@ class _ContratoDiarioPageState
                       size: 60,
                       color: Colors.grey,
                     ),
+
                     const SizedBox(
                       height: 16,
                     ),
+
                     const Text(
                       'Não foi possível carregar o contrato diário.',
                       textAlign:
                           TextAlign.center,
                     ),
+
                     const SizedBox(
                       height: 16,
                     ),
+
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
@@ -210,6 +286,42 @@ class _ContratoDiarioPageState
                             heroi.speed,
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  ElevatedButton.icon(
+                    onPressed:
+                        _recrutando
+                            ? null
+                            : () =>
+                                _recrutar(
+                                  heroi,
+                                ),
+                    icon: const Icon(
+                      Icons.person_add,
+                    ),
+                    label: Text(
+                      _recrutando
+                          ? 'Recrutando...'
+                          : 'Recrutar agente',
+                    ),
+                    style:
+                        ElevatedButton
+                            .styleFrom(
+                      backgroundColor:
+                          Colors
+                              .deepPurple,
+                      foregroundColor:
+                          Colors.white,
+                      padding:
+                          const EdgeInsets
+                              .symmetric(
+                        vertical: 16,
                       ),
                     ),
                   ),

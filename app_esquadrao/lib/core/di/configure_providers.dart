@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/database/dao/heroi_dao.dart';
+import '../../data/database/dao/squad_dao.dart';
 import '../../data/database/database_mapper.dart';
 import '../../data/network/client/api_client.dart';
 import '../../data/network/network_mapper.dart';
@@ -10,6 +11,8 @@ import '../../data/repository/contrato_diario_repository.dart';
 import '../../data/repository/contrato_diario_repository_impl.dart';
 import '../../data/repository/heroi_repository.dart';
 import '../../data/repository/heroi_repository_impl.dart';
+import '../../data/repository/squad_repository.dart';
+import '../../data/repository/squad_repository_impl.dart';
 
 class ConfigureProviders {
   final List<SingleChildWidget> providers;
@@ -34,6 +37,9 @@ class ConfigureProviders {
     final heroiDao =
         HeroiDao();
 
+    final squadDao =
+        SquadDao();
+
     final preferences =
         await SharedPreferences.getInstance();
 
@@ -53,6 +59,13 @@ class ConfigureProviders {
           preferences,
     );
 
+    final squadRepository =
+        SquadRepositoryImpl(
+      squadDao: squadDao,
+      heroiRepository:
+          heroisRepository,
+    );
+
     return ConfigureProviders(
       providers: [
         Provider<ApiClient>.value(
@@ -67,6 +80,9 @@ class ConfigureProviders {
         Provider<HeroiDao>.value(
           value: heroiDao,
         ),
+        Provider<SquadDao>.value(
+          value: squadDao,
+        ),
         Provider<SharedPreferences>.value(
           value: preferences,
         ),
@@ -80,6 +96,9 @@ class ConfigureProviders {
             .value(
           value:
               contratoDiarioRepository,
+        ),
+        Provider<SquadRepository>.value(
+          value: squadRepository,
         ),
       ],
     );
