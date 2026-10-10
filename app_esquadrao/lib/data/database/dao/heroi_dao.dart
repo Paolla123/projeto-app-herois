@@ -10,7 +10,8 @@ class HeroiDao extends BaseDao {
   }) async {
     final Database db = await getDb();
 
-    final List<Map<String, dynamic>> maps = await db.query(
+    final List<Map<String, dynamic>> maps =
+        await db.query(
       HeroiDatabaseContract.heroiTable,
       limit: limit,
       offset: offset,
@@ -87,6 +88,26 @@ class HeroiDao extends BaseDao {
           );
         }
       },
+    );
+  }
+
+  Future<void> update(
+    HeroiDatabaseEntity entity,
+  ) async {
+    final Database db = await getDb();
+
+    final values = entity.toJson();
+
+    values.remove(
+      HeroiDatabaseContract.localIdColumn,
+    );
+
+    await db.update(
+      HeroiDatabaseContract.heroiTable,
+      values,
+      where:
+          '${HeroiDatabaseContract.idColumn} = ?',
+      whereArgs: [entity.id],
     );
   }
 

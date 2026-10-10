@@ -11,6 +11,8 @@ import '../../data/repository/contrato_diario_repository.dart';
 import '../../data/repository/contrato_diario_repository_impl.dart';
 import '../../data/repository/heroi_repository.dart';
 import '../../data/repository/heroi_repository_impl.dart';
+import '../../data/repository/missao_repository.dart';
+import '../../data/repository/missao_repository_impl.dart';
 import '../../data/repository/squad_repository.dart';
 import '../../data/repository/squad_repository_impl.dart';
 
@@ -66,6 +68,18 @@ class ConfigureProviders {
           heroisRepository,
     );
 
+    final missaoRepository =
+        MissaoRepositoryImpl(
+      heroiRepository:
+          heroisRepository,
+      squadRepository:
+          squadRepository,
+      heroiDao:
+          heroiDao,
+      databaseMapper:
+          databaseMapper,
+    );
+
     return ConfigureProviders(
       providers: [
         Provider<ApiClient>.value(
@@ -99,6 +113,9 @@ class ConfigureProviders {
         ),
         Provider<SquadRepository>.value(
           value: squadRepository,
+        ),
+        Provider<MissaoRepository>.value(
+          value: missaoRepository,
         ),
       ],
     );

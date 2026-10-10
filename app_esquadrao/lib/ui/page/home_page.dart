@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'contrato_diario_page.dart';
 import 'herois_list_page.dart';
+import 'meu_esquadrao_page.dart';
+import 'missoes_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -27,11 +29,9 @@ class HomePage extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment:
-                MainAxisAlignment
-                    .center,
+                MainAxisAlignment.center,
             crossAxisAlignment:
-                CrossAxisAlignment
-                    .stretch,
+                CrossAxisAlignment.stretch,
             children: [
               _buildMenuButton(
                 context,
@@ -74,7 +74,16 @@ class HomePage extends StatelessWidget {
               _buildMenuButton(
                 context,
                 'Meu Esquadrão',
-                () {},
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              const MeuEsquadraoPage(),
+                    ),
+                  );
+                },
               ),
 
               const SizedBox(
@@ -84,7 +93,16 @@ class HomePage extends StatelessWidget {
               _buildMenuButton(
                 context,
                 'Missões',
-                () {},
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              const MissoesPage(),
+                    ),
+                  );
+                },
               ),
             ],
           ),
